@@ -1,0 +1,22 @@
+{
+    "name": "jeson-ckon/ck-redis",
+    "description": "Redis Socket PHP Class",
+    "license": "MIT",
+    "keywords": [
+      "redis",
+      "php",
+      "Socket"
+    ],
+    "authors": [
+        {
+            "name": "Jeson.ckon",
+            "email": "ckontem@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "CkRedis\\": "src" }
+    },
+    "require": {
+      "php":">=5.4.0"
+    }
+}
