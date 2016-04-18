@@ -8,4 +8,5 @@
 
 class CkRedis extends Handler
 {
+    
 }

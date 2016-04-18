@@ -18,7 +18,7 @@ class Handler
     }
     private function _initialization($num_args, $args)
     {
-        
+
     }
     private function _connect()
     {
