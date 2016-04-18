@@ -1,9 +1,15 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: kontem
+ * Date: 16/4/18
+ * Time: 11:03.
+ */
 namespace CkRedis;
 
 class RStrings extends AbstractApi
 {
+    use Common;
     const IS_APPEND = 'IS_APPEND';
     const IS_DEFAULT = 'IS_DEFAULT';
     public function get($key = '')
@@ -24,18 +30,17 @@ class RStrings extends AbstractApi
     }
     public function exists($key = '')
     {
-        if (is_string($key)) {
-          $command_str = "EXISTS {$key}".Handler::ED;
-        }elseif (is_array($key)) {
-          $key_str = '';
-          $key_str = implode(" ",$key);
-          $command_str = "EXISTS {$key_str}".Handler::ED;
-        }
+        $key_str = Common::createKeys($key);
+        $command_str = "EXISTS {$key_str}".Handler::ED;
+
         return $this->handler->runCommand($command_str);
     }
     public function del($key = '')
     {
-        # code...
+        $key_str = Common::createKeys($key);
+        $command_str = "DEL {$key_str}".Handler::ED;
+
+        return $this->handler->runCommand($command_str);
     }
     public function getDebug()
     {
