@@ -13,7 +13,7 @@ trait Common
 {
   public static function createKeys($key = '')
   {
-      $str = '';
+      $str = null;
       if (is_array($key)) {
         $str = implode(" ",$key);
       }else {
