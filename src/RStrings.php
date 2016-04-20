@@ -12,36 +12,46 @@ class RStrings extends AbstractApi
     use Common;
     const IS_APPEND = 'IS_APPEND';
     const IS_DEFAULT = 'IS_DEFAULT';
-    public function get($key = '')
-    {
-        $str = "GET {$key}".Handler::ED;
+    private $key_arr = array(
+        'append'      => 'APPEND "%s" "%s"',
+        'bitcount'    => 'BITCOUNT "%s" %d %d',
+        'bitop'       => 'BITOP %s "%s" %s',
+        'bitpos'      => 'BITPOS "%s" %d %d %d',
+        'decr'        => 'DECR "%s"',
+        'decrby'      => 'DECRBY "%s" %d',
+        'get'         => 'GET "%s"',
+        'getbit'      => 'GETBIT %s %d',
+        'getrange'    => 'GETRANGE %s %d %d',
+        'getset'      => 'GETSET %s "%s"',
+        'incr'        => 'INCR "%s"',
+        'incrby'      => 'INCRBY "%s" %d',
+        'incrbyfloat' => 'INCRBYFLOAT "%s" %f',
+        'mget'        => 'MGET "%s" %s',
+        'mset'        => 'MSET %s',
+        'msetnx'      => 'MSETNX %s',
+        'psetex'      => 'PSETEX "%s" %d "%s"',
+        'set'         => 'SET "%s" "%s"',
+        'setbit'      => 'SETBIT "%s" %d %d',
+        'setex'       => 'SETEX "%s" %d "%s"',
+        'setnx'       => 'SETNX "%s" "%s"',
+        'setrange'    => 'SETRANGE "%s" %d "%s"',
+        'strlen'      => 'STRLEN "%s"',
+    );
 
-        return $this->handler->runCommand($str);
-    }
-    public function set($key = '', $value = '', $type = IS_DEFAULT)
+    public function __call($name = null, $args = null)
     {
-        if ($type == IS_APPEND) {
-            $command_str = "APPEND {$key} {$value}".Handler::ED;
-        } else {
-            $command_str = "SET {$key} {$value}".Handler::ED;
+        if (in_array(strtolower($name), array_keys($this->key_arr))) {
+            $str = vsprintf($this->key_arr[ $name ], self::argsFilter($args)) . Handler::ED;
+
+            return $this->handler->runCommand($str);
         }
-
-        return $this->handler->runCommand($command_str);
     }
-    public function exists($key = '')
+
+    function del()
     {
-        $key_str = Common::createKeys($key);
-        $command_str = "EXISTS {$key_str}".Handler::ED;
-
-        return $this->handler->runCommand($command_str);
+        // TODO: Implement del() method.
     }
-    public function del($key = '')
-    {
-        $key_str = Common::createKeys($key);
-        $command_str = "DEL {$key_str}".Handler::ED;
 
-        return $this->handler->runCommand($command_str);
-    }
     public function getDebug()
     {
         return $this->handler->debug_info;
