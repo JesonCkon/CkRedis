@@ -14,6 +14,7 @@ class Application extends Container
     public $service_list = array(
         'str' => RStrings::class,
         'list' => RList::class,
+        'public' => RPublic::class,
     );
     private function _registerService()
     {

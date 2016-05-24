@@ -11,6 +11,7 @@ namespace CkRedis;
 
 trait Common
 {
+
     public static function createKeys($key = '')
     {
         $str = null;

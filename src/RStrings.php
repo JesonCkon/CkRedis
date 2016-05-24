@@ -38,15 +38,6 @@ class RStrings extends AbstractApi
         'strlen'      => 'STRLEN "%s"',
     );
 
-    public function __call($name = null, $args = null)
-    {
-        if (in_array(strtolower($name), array_keys($this->key_arr))) {
-            $str = vsprintf($this->key_arr[ $name ], self::argsFilter($args)) . Handler::ED;
-
-            return $this->handler->runCommand($str);
-        }
-    }
-
     function del()
     {
         // TODO: Implement del() method.

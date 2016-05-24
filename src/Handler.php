@@ -102,6 +102,8 @@ class Handler
             $reply = substr($reply, 1);
             if ($reply == 'OK') {
                 return true;
+            }else{
+                return $reply;
             }
         }
         if (isset($reply[0]) && $reply[0] == ':') {
