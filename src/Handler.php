@@ -79,9 +79,24 @@ class Handler
     private function _getValue($length = 0)
     {
         $reply = null;
-        $reply_len = 0;
         $temp_str = $this->_read($length);
         $reply = trim($temp_str);
+        if (isset($reply[0]) && $reply[0] == '*') {
+            $count = $reply[1]-1;
+            for($i=0;$i<=$count;$i++){
+                $return_key_str = $this->_read($length);
+                if(isset($return_key_str[0]) && $return_key_str[0] == '$'){
+                    $val_len = substr($return_key_str, 1);
+                    $val =  trim($this->_read($length));
+                    if(strlen($val) == $val_len){
+                        $return_val_str[] = $val;
+                    }
+                    //$return_val_str[] = $val;
+                }
+            }
+            $reply = $return_val_str;
+            return $reply;
+        }
         if (isset($reply[0]) && $reply[0] == '$') {
 
             $reply_len = substr($reply, 1);

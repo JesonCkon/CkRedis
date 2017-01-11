@@ -43,4 +43,15 @@ trait Common
 
         return $args;
     }
+    public static function argsToString($args = null){
+        $key_str = '';
+        if(is_string($args)){
+            $key_str = $args;
+        }elseif(is_array($args)){
+            foreach($args as $val){
+                $key_str .=" '".$val."'";
+            }
+        }
+        return $key_str;
+    }
 }
