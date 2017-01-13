@@ -66,7 +66,15 @@ class RSet extends AbstractApi
     }
     function del()
     {
-        // TODO: Implement del() method.
+        $argc_list =func_get_args();
+        $key_lists = $argc_list[0];
+        if (empty($key_lists)) {
+            return array();
+        }
+        $key_str = self::argsToString($key_lists);
+        $str = vsprintf('DEL %s', $key_str) . Handler::ED;
+
+        return $this->handler->runCommand($str);
     }
 }
 
