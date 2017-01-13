@@ -18,15 +18,15 @@ class Handler
     protected $timeout = 1;
     protected $read_length = 1024;
     public $debug_info = array();
+    public $isConnect = false;
     public function __construct()
     {
         $this->_initialization(func_num_args(), func_get_args());
-        $this->_connect();
+        $this->isConnect = $this->_connect();
     }
     private function _initialization($num_args, $args)
     {
         if ($num_args == 1 && is_array($args)) {
-            $t = array();
             $t = $args[0];
             $this->host = isset($t['host']) ? (string) $t['host'] : null;
             $this->port = isset($t['port']) ? (string) $t['port'] : null;
@@ -43,7 +43,7 @@ class Handler
     {
         $this->sock = fsockopen($this->host, $this->port, $errno, $errstr, $this->timeout);
         if ($this->sock == false) {
-            #echo "$errstr ($errno)<br />\n";
+            return false;
         }
 
         return true;
