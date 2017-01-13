@@ -16,7 +16,7 @@ class RSet extends AbstractApi
     public $queue_data_type = 'json';
     public $queue_data_type_list = array('json', 'serialize');
     public $key_arr = array(
-        'sadd'        => 'SADD %s %s',
+        'sadd'        => 'SADD %s "%s"',
         'scard'       => 'SCARD %s',
         'sdiff'       => 'SDIFF %s',
         'sdiffstore'  => 'SDIFFSTORE %s',
