@@ -82,7 +82,7 @@ class Handler
         $temp_str = $this->_read($length);
         $reply = trim($temp_str);
         if (isset($reply[0]) && $reply[0] == '*') {
-            $count = $reply[1]-1;
+            $count = substr($reply, 1)-1;
             $return_val_str = [];
             for($i=0;$i<=$count;$i++){
                 $return_key_str = $this->_read($length);
